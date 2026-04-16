@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ["python39", "python39Packages.pip", "nodejs_20"]
+
+[phases.install]
+cmds = [
+  "python3 -m pip install --upgrade pip",
+  "pip3 install -r api/requirements.txt",
+  "npm ci"
+]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "python3 -m uvicorn api.main:app --host 0.0.0.0 --port ${PORT}"
